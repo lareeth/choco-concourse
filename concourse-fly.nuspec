@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Do not remove this test for UTF-8: if ??? doesn?t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <!-- Read this before publishing packages to chocolatey.org: https://github.com/chocolatey/chocolatey/wiki/CreatePackages -->
+    <id>concourse-fly</id>
+    <title>Concourse Fly</title>
+    <version>5.2.0</version>
+    <authors>Concourse</authors>
+    <summary>Concourse is a container-based continuous thing-doer written in Go and Elm.</summary>
+    <description>Concourse is an automation system written in Go. It is most commonly used for CI/CD, and is built to scale to any kind of automation pipeline, from simple to complex.</description>
+    <projectSourceUrl>https://github.com/concourse/concourse</projectSourceUrl>
+    <tags>go ci pipelines elm concourse continuous-integration continuous-delivery ci-cd</tags>
+    <docsUrl>https://concourse-ci.org/docs.html</docsUrl>
+	<bugTrackerUrl>https://github.com/concourse/concourse/issues</bugTrackerUrl>
+	<iconUrl>https://raw.githubusercontent.com/lareeth/choco-concourse-fly/master/concourse.png</iconUrl>
+    <packageSourceUrl>https://github.com/lareeth/choco-concourse-fly</packageSourceUrl>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>

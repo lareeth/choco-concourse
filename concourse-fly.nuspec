@@ -5,7 +5,7 @@
     <!-- Read this before publishing packages to chocolatey.org: https://github.com/chocolatey/chocolatey/wiki/CreatePackages -->
     <id>concourse-fly</id>
     <title>Concourse Fly</title>
-    <version>5.2.0</version>
+    <version>$version$</version>
     <authors>Concourse</authors>
     <summary>Concourse is a container-based continuous thing-doer written in Go and Elm.</summary>
     <description>Concourse is an automation system written in Go. It is most commonly used for CI/CD, and is built to scale to any kind of automation pipeline, from simple to complex.</description>

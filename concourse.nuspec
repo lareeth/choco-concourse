@@ -22,8 +22,8 @@ Concourse is very opinionated about a few things: idempotency, immutability, dec
     <docsUrl>https://concourse-ci.org/docs.html</docsUrl>
     <bugTrackerUrl>https://github.com/concourse/concourse/issues</bugTrackerUrl>
     <mailingListUrl>https://discuss.concourse-ci.org</mailingListUrl>
-    <iconUrl>https://raw.githubusercontent.com/lareeth/choco-concourse/master/concourse.pn</iconUrl>
-    <releaseNotes>https://github.com/concourse/concourse/releases</releaseNotes>
+    <iconUrl>https://raw.githubusercontent.com/lareeth/choco-concourse/master/concourse.png</iconUrl>
+    <releaseNotes>https://github.com/concourse/concourse/releases/tag/v$version$</releaseNotes>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />

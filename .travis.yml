@@ -3,7 +3,7 @@
 os: windows
 
 env:
-  - VERSION=5.5.1
+  - VERSION=5.5.3
 
 script:
   - choco pack --version $VERSION

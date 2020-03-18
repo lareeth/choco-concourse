@@ -1,6 +1,6 @@
 $packageName    = 'concourse-fly'
-$url            = 'https://github.com/concourse/concourse/releases/download/v5.7.2/fly-5.7.2-windows-amd64.zip'
-$checksum       = 'aeebefbb4c7e66635fe6bad166d9db36d29e4efe'
+$url            = 'https://github.com/concourse/concourse/releases/download/v5.8.0/fly-5.8.0-windows-amd64.zip'
+$checksum       = 'ccaf5fedf16996b9e21e396660cc7769d80abadd'
 $checksumType   = 'sha1'
 $validExitCodes = @(0)
  

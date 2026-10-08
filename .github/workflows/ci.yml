@@ -1,0 +1,100 @@
+name: ci
+
+permissions:
+  contents: read
+  packages: write
+
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - 'main'
+
+env:
+  VERSION: '8.3.0'
+
+jobs:
+  pack:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Choco Pack
+        uses: crazy-max/ghaction-chocolatey@v4
+        with:
+          args: pack --version ${{ env.VERSION }}
+
+      - name: Upload Package
+        uses: actions/upload-artifact@v7
+        with:
+          name: concourse-package
+          path: concourse.${{ env.VERSION }}.nupkg
+
+  test:
+    needs: pack
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ 'windows-latest' ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Download Package
+        uses: actions/download-artifact@v8
+        with:
+          name: concourse-package
+
+      - name: Check Processor Architecture
+        run: echo $env:PROCESSOR_ARCHITECTURE
+        shell: pwsh
+
+      - name: Choco Install
+        uses: crazy-max/ghaction-chocolatey@v4
+        with:
+          args: install concourse --version ${{ env.VERSION }} --source=.
+
+      - name: Refresh env
+        shell: pwsh
+        run: |
+          Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+          refreshenv
+
+      - name: Fly Version
+        run: fly --version
+
+  push:
+    needs: test
+    runs-on: windows-latest
+    if: github.event_name != 'pull_request'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Download Package
+        uses: actions/download-artifact@v8
+        with:
+          name: concourse-package
+
+      - name: Login to github.com
+        uses: crazy-max/ghaction-chocolatey@v4
+        with:
+          args: apikey --key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/lareeth/"
+
+      - name: Login to chocolatey.org
+        uses: crazy-max/ghaction-chocolatey@v4
+        with:
+          args: apikey --key ${{secrets.CHOCO_KEY}} --source "https://push.chocolatey.org/"
+
+      - name: Choco Push to github.com
+        uses: crazy-max/ghaction-chocolatey@v4
+        with:
+          args: push concourse.${{ env.VERSION }}.nupkg --source "https://nuget.pkg.github.com/lareeth/"
+
+      - name: Choco Push to chocolatey.org
+        uses: crazy-max/ghaction-chocolatey@v4
+        with:
+          args: push concourse.${{ env.VERSION }}.nupkg --source "https://push.chocolatey.org/"

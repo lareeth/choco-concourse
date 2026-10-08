@@ -1,0 +1,41 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "description": "Renovate configuration for choco-concourse",
+  "labels": ["dependencies"],
+  "semanticCommits": "enabled",
+  "commitMessageTopic": "{{depName}}",
+  "commitMessageExtra": "to {{newVersion}}",
+  "customManagers": [
+    {
+      "description": "Track the concourse fly amd64 release and its sha256 (resolved from the release's shasums asset)",
+      "customType": "regex",
+      "managerFilePatterns": ["/^tools/chocolateyInstall\\.ps1$/"],
+      "matchStrings": [
+        "\\$url\\s*=\\s*'https://github\\.com/concourse/concourse/releases/download/(?<currentValue>v[0-9]+\\.[0-9]+\\.[0-9]+)/fly-(?<fileVersion>[0-9]+\\.[0-9]+\\.[0-9]+)-windows-amd64\\.zip'\\s*\\n\\$checksum\\s*=\\s*'(?<currentDigest>[a-f0-9]{64})'"
+      ],
+      "autoReplaceStringTemplate": "$url = 'https://github.com/concourse/concourse/releases/download/v{{{newValue}}}/fly-{{{newValue}}}-windows-amd64.zip'\n$checksum = '{{{newDigest}}}'",
+      "datasourceTemplate": "github-release-attachments",
+      "depNameTemplate": "concourse/concourse",
+      "versioningTemplate": "semver-coerced"
+    },
+    {
+      "description": "Track the package VERSION in the CI pipeline",
+      "customType": "regex",
+      "managerFilePatterns": ["/^\\.github/workflows/ci\\.yml$/"],
+      "matchStrings": [
+        "VERSION:\\s*'(?<currentValue>[0-9]+\\.[0-9]+\\.[0-9]+)'"
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "concourse/concourse",
+      "versioningTemplate": "semver-coerced"
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Concourse core release",
+      "matchDepNames": ["concourse/concourse"],
+      "labels": ["concourse-update"]
+    }
+  ]
+}

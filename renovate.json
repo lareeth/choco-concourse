@@ -12,9 +12,8 @@
       "customType": "regex",
       "managerFilePatterns": ["/^tools/chocolateyInstall\\.ps1$/"],
       "matchStrings": [
-        "\\$url\\s*=\\s*'https://github\\.com/concourse/concourse/releases/download/(?<currentValue>v[0-9]+\\.[0-9]+\\.[0-9]+)/fly-(?<fileVersion>[0-9]+\\.[0-9]+\\.[0-9]+)-windows-amd64\\.zip'\\s*\\n\\$checksum\\s*=\\s*'(?<currentDigest>[a-f0-9]{64})'"
+        "\\$version\\s*=\\s*'(?<currentValue>v[0-9]+\\.[0-9]+\\.[0-9]+)'\\s*\\n\\$checksum\\s*=\\s*'(?<currentDigest>[a-f0-9]{64})'"
       ],
-      "autoReplaceStringTemplate": "$url = 'https://github.com/concourse/concourse/releases/download/v{{{newValue}}}/fly-{{{newValue}}}-windows-amd64.zip'\n$checksum = '{{{newDigest}}}'",
       "datasourceTemplate": "github-release-attachments",
       "depNameTemplate": "concourse/concourse",
       "versioningTemplate": "semver-coerced"

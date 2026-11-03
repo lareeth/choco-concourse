@@ -1,6 +1,6 @@
 $packageName    = 'concourse-fly'
-$version        = 'v8.3.2'
-$checksum       = 'c351fdbf98809c85dd4cb975e222890b8e7d7e74ccba3891fcd3f21ea95a30bf'
+$version        = 'v8.3.3'
+$checksum       = '0a3f5650484e82afc7c7929a02b3724db4199835db59d9ed0966025c72d67077'
 $checksumType   = 'sha256'
 $validExitCodes = @(0)
  
